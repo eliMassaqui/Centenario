@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class curvarMundo : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float Speed = 10f;
+
+    [Range(-1f, 1f)] public float BendX = 0.1f;
+    [Range(-1f, 1f)] public float BendY = 0.1f;
+
+    public Material[] materials;
+
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        foreach (var m in materials)
+        {
+            m.SetFloat("_CurveX", BendX);
+            m.SetFloat("_CurveY", BendY);
+        }
+
+        transform.Translate(Vector3.back * Speed * Time.deltaTime);
     }
 }
