@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 10148277}
   - component: {fileID: 10148279}
   - component: {fileID: 10148280}
+  - component: {fileID: 10148281}
   m_Layer: 0
   m_Name: Mundo Manager
   m_TagString: Untagged
@@ -189,6 +190,31 @@ MonoBehaviour:
   quantidade: 5
   comprimento: 10
   jogador: {fileID: 568706464}
+  obstaculos:
+  - {fileID: 4469762944867706564, guid: f10115d2c998a924bbf6df54ee8011b6, type: 3}
+  distanciaMinObstaculo: 10
+  distanciaMaxObstaculo: 20
+  posicaoYObstaculo: 0.5
+--- !u!114 &10148281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10148275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc21a1471e5b034dbe6e124437e6c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objetosLado:
+  - {fileID: 0}
+  - {fileID: 0}
+  intervaloSpawn: 10
+  distanciaSpawn: 100
+  jogador: {fileID: 568706464}
+  posicaoY: 0
+  offsetX: 5
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
