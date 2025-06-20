@@ -15,12 +15,6 @@ public class HUDManager : MonoBehaviour
     public float intervaloMarco = 100f;
     public float tempoExibicaoMarco = 2f;
 
-    [Header("Debug PlayerPrefs")]
-    public float recordeSalvo;      // Só leitura
-    public float novoRecorde = 0f;  // Editável
-    public bool salvarNovoRecorde;  // Quando ativado, salva novo recorde
-    public bool apagarRecorde;      // Quando ativado, apaga o recorde
-
     private float pontoInicialZ;
     private float proximoMarco;
     private float tempoDecorrido;
@@ -31,7 +25,6 @@ public class HUDManager : MonoBehaviour
         pontoInicialZ = jogador.position.z;
         proximoMarco = intervaloMarco;
         recorde = PlayerPrefs.GetFloat("Recorde", 0f);
-        recordeSalvo = recorde;
 
         textoMarco.gameObject.SetActive(false);
         textoRecorde.gameObject.SetActive(true);
@@ -58,30 +51,29 @@ public class HUDManager : MonoBehaviour
             PlayerPrefs.SetFloat("Recorde", recorde);
             textoRecorde.gameObject.SetActive(false);
         }
+    }
 
-        // Checar os bools de controle no Inspector
-        if (salvarNovoRecorde)
-        {
-            PlayerPrefs.SetFloat("Recorde", novoRecorde);
-            recordeSalvo = novoRecorde;
-            Debug.Log("✔ Novo recorde salvo: " + novoRecorde);
-            salvarNovoRecorde = false; // Resetar para não repetir
-        }
+    void OnDisable()
+    {
+        float distanciaFinal = jogador.position.z - pontoInicialZ;
+        int marcosAlcancados = Mathf.FloorToInt(distanciaFinal / intervaloMarco);
 
-        if (apagarRecorde)
-        {
-            PlayerPrefs.DeleteKey("Recorde");
-            recordeSalvo = 0f;
-            Debug.Log("❌ Recorde apagado.");
-            apagarRecorde = false; // Resetar para não repetir
-        }
+        // Salva estatísticas acumuladas
+        PlayerPrefs.SetFloat("TempoTotal", PlayerPrefs.GetFloat("TempoTotal", 0f) + tempoDecorrido);
+        PlayerPrefs.SetInt("TotalMarcos", PlayerPrefs.GetInt("TotalMarcos", 0) + marcosAlcancados);
+        PlayerPrefs.SetInt("Jogadas", PlayerPrefs.GetInt("Jogadas", 0) + 1);
+
+        // Salva estatísticas da última corrida
+        PlayerPrefs.SetFloat("UltimaDistancia", distanciaFinal);
+        PlayerPrefs.SetFloat("UltimoTempo", tempoDecorrido);
+        PlayerPrefs.SetInt("UltimosMarcos", marcosAlcancados);
     }
 
     string FormatadorTempo(float t)
     {
         int minutos = Mathf.FloorToInt(t / 60f);
         int segundos = Mathf.FloorToInt(t % 60f);
-        return string.Format("Tempo: {0:00}:{1:00}", minutos, segundos);
+        return string.Format("{0:00}:{1:00}", minutos, segundos);
     }
 
     void MostrarMarco(string mensagem)
