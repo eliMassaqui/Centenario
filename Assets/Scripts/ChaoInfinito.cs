@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class ChaoInfinito : MonoBehaviour
 {
     public GameObject[] blocosDeChao; // Prefabs dos blocos
-    public int quantidade = 5; // Quantos blocos em cena
+    public int quantidade = 4; // Quantos blocos em cena
     public float comprimento = 30f; // Comprimento de cada bloco
     public Transform jogador;
 
