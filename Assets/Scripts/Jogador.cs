@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Jogador : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Jogador : MonoBehaviour
     [Header("UI Game Over")]
     public GameObject painelGameOver;
 
+    [Header("UI Recompensa")]
+    public TextMeshProUGUI textoMascaras; // arrasta o texto no inspector
+
+    private int mascarasColetadas = 0;
     private bool estaVivo = true;
 
     void Start()
@@ -19,6 +24,9 @@ public class Jogador : MonoBehaviour
 
         if (painelGameOver != null)
             painelGameOver.SetActive(false);
+
+        if (textoMascaras != null)
+            textoMascaras.text = "Máscaras: 0";
     }
 
     void Update()
@@ -42,11 +50,27 @@ public class Jogador : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Mascara"))
+        {
+            mascarasColetadas++;
+            Destroy(other.gameObject);
+
+            if (textoMascaras != null)
+                textoMascaras.text = "Mascaras: " + mascarasColetadas;
+        }
+    }
+
     void MostrarGameOver()
     {
         Time.timeScale = 0f;
         if (painelGameOver != null)
             painelGameOver.SetActive(true);
+
+        // Salvar quantidade de máscaras
+        PlayerPrefs.SetInt("TotalMascaras", PlayerPrefs.GetInt("TotalMascaras", 0) + mascarasColetadas);
+        PlayerPrefs.SetInt("UltimasMascaras", mascarasColetadas);
     }
 
     public void Repetir()
@@ -58,6 +82,6 @@ public class Jogador : MonoBehaviour
     public void VoltarMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MENU"); // Ajusta o nome da tua cena de menu
+        SceneManager.LoadScene("MENU");
     }
 }
