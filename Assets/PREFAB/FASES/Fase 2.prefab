@@ -3944,6 +3944,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: VanBig
       objectReference: {fileID: 0}
+    - target: {fileID: 2634900756195477355, guid: a107403662659584f9413d0a586f375c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstaculo
+      objectReference: {fileID: 0}
     - target: {fileID: 8355181012312078581, guid: a107403662659584f9413d0a586f375c,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4012,7 +4017,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2634900756195477355, guid: a107403662659584f9413d0a586f375c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6477832646196795726}
   m_SourcePrefab: {fileID: 100100000, guid: a107403662659584f9413d0a586f375c, type: 3}
 --- !u!4 &2105629263306660277 stripped
 Transform:
@@ -4020,3 +4029,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7983512647615947072}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5357645504824747563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2634900756195477355, guid: a107403662659584f9413d0a586f375c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7983512647615947072}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6477832646196795726
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5357645504824747563}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8597262, y: 1.1807305, z: 0.5540473}
+  m_Center: {x: -0.012157759, y: 1.1119744, z: 2.7427096}

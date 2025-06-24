@@ -11,8 +11,11 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI textoRecorde;
     public TextMeshProUGUI textoMarco;
 
+    [Header("Painel Marco")]
+    public GameObject painelMarco;
+
     [Header("Configurações")]
-    public float intervaloMarco = 100f;
+    public float intervaloMarco = 500f;
     public float tempoExibicaoMarco = 2f;
 
     private float pontoInicialZ;
@@ -26,8 +29,11 @@ public class HUDManager : MonoBehaviour
         proximoMarco = intervaloMarco;
         recorde = PlayerPrefs.GetFloat("Recorde", 0f);
 
-        textoMarco.gameObject.SetActive(false);
-        textoRecorde.gameObject.SetActive(true);
+        if (painelMarco != null)
+            painelMarco.SetActive(false);
+
+        if (textoRecorde != null)
+            textoRecorde.gameObject.SetActive(true);
     }
 
     void Update()
@@ -35,9 +41,14 @@ public class HUDManager : MonoBehaviour
         float distancia = jogador.position.z - pontoInicialZ;
         tempoDecorrido += Time.deltaTime;
 
-        textoDistancia.text = "Distância: " + Mathf.FloorToInt(distancia) + "m";
-        textoTempo.text = "Tempo: " + FormatadorTempo(tempoDecorrido);
-        textoRecorde.text = "Recorde: " + Mathf.FloorToInt(recorde) + "m";
+        if (textoDistancia != null)
+            textoDistancia.text = "Distância: " + Mathf.FloorToInt(distancia) + "m";
+
+        if (textoTempo != null)
+            textoTempo.text = "Tempo: " + FormatadorTempo(tempoDecorrido);
+
+        if (textoRecorde != null)
+            textoRecorde.text = "Recorde: " + Mathf.FloorToInt(recorde) + "m";
 
         if (distancia >= proximoMarco)
         {
@@ -49,7 +60,9 @@ public class HUDManager : MonoBehaviour
         {
             recorde = distancia;
             PlayerPrefs.SetFloat("Recorde", recorde);
-            textoRecorde.gameObject.SetActive(false);
+
+            if (textoRecorde != null)
+                textoRecorde.gameObject.SetActive(false);
         }
     }
 
@@ -58,12 +71,10 @@ public class HUDManager : MonoBehaviour
         float distanciaFinal = jogador.position.z - pontoInicialZ;
         int marcosAlcancados = Mathf.FloorToInt(distanciaFinal / intervaloMarco);
 
-        // Salva estatísticas acumuladas
         PlayerPrefs.SetFloat("TempoTotal", PlayerPrefs.GetFloat("TempoTotal", 0f) + tempoDecorrido);
         PlayerPrefs.SetInt("TotalMarcos", PlayerPrefs.GetInt("TotalMarcos", 0) + marcosAlcancados);
         PlayerPrefs.SetInt("Jogadas", PlayerPrefs.GetInt("Jogadas", 0) + 1);
 
-        // Salva estatísticas da última corrida
         PlayerPrefs.SetFloat("UltimaDistancia", distanciaFinal);
         PlayerPrefs.SetFloat("UltimoTempo", tempoDecorrido);
         PlayerPrefs.SetInt("UltimosMarcos", marcosAlcancados);
@@ -78,14 +89,19 @@ public class HUDManager : MonoBehaviour
 
     void MostrarMarco(string mensagem)
     {
-        textoMarco.text = mensagem;
-        textoMarco.gameObject.SetActive(true);
+        if (textoMarco != null)
+            textoMarco.text = mensagem;
+
+        if (painelMarco != null)
+            painelMarco.SetActive(true);
+
         CancelInvoke("OcultarMarco");
         Invoke("OcultarMarco", tempoExibicaoMarco);
     }
 
     void OcultarMarco()
     {
-        textoMarco.gameObject.SetActive(false);
+        if (painelMarco != null)
+            painelMarco.SetActive(false);
     }
 }
