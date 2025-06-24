@@ -190,7 +190,7 @@ MonoBehaviour:
   - {fileID: 5068694452275280662, guid: 2f0b65162b81eee4e8474d6608561016, type: 3}
   - {fileID: 1174546853268319445, guid: a8d2fdcd6436e9a45858b238c1d37ac0, type: 3}
   quantidade: 4
-  comprimento: 25
+  comprimento: 30
   jogador: {fileID: 543450653534583384}
 --- !u!114 &190302759
 MonoBehaviour:
@@ -514,10 +514,6 @@ MonoBehaviour:
   textoMarco: {fileID: 1468449643}
   intervaloMarco: 50
   tempoExibicaoMarco: 4
-  recordeSalvo: 0
-  novoRecorde: 0
-  salvarNovoRecorde: 0
-  apagarRecorde: 0
 --- !u!4 &334943261
 Transform:
   m_ObjectHideFlags: 0
@@ -1671,7 +1667,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5116467536759905631, guid: af44eacd2bedf384a8260a57b974931e, type: 3}
+  - {fileID: 2100000, guid: 39b5b3b98a138b54aa62186426fa6c7e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
