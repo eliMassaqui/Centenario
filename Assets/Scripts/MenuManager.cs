@@ -7,6 +7,9 @@ public class MenuManager : MonoBehaviour
     [Header("Nomes das cenas")]
     public string nomeCenaJogo = "CenaJogo";
 
+    [Header("Painel de máscaras")]
+    public GameObject panelMascara;          // ← arrasta o painel aqui
+
     [Header("Textos de estatísticas")]
     public TextMeshProUGUI textoRecorde;
     public TextMeshProUGUI textoTempoTotal;
@@ -20,37 +23,40 @@ public class MenuManager : MonoBehaviour
     public TextMeshProUGUI textoUltimoTempo;
     public TextMeshProUGUI textoUltimosMarcos;
 
+    /* ---------- Inicialização ---------- */
     void Start()
     {
         // Estatísticas acumuladas
-        float recorde = PlayerPrefs.GetFloat("Recorde", 0f);
-        float tempoTotal = PlayerPrefs.GetFloat("TempoTotal", 0f);
-        int totalMarcos = PlayerPrefs.GetInt("TotalMarcos", 0);
-        int jogadas = PlayerPrefs.GetInt("Jogadas", 0);
-        int totalMascaras = PlayerPrefs.GetInt("TotalMascaras", 0);
+        float recorde       = PlayerPrefs.GetFloat("Recorde",      0f);
+        float tempoTotal    = PlayerPrefs.GetFloat("TempoTotal",   0f);
+        int   totalMarcos   = PlayerPrefs.GetInt  ("TotalMarcos",  0);
+        int   jogadas       = PlayerPrefs.GetInt  ("Jogadas",      0);
+        int   totalMascaras = PlayerPrefs.GetInt  ("TotalMascaras",0);
 
-        textoRecorde.text = "Recorde: " + Mathf.FloorToInt(recorde) + "m";
-        textoTempoTotal.text = "Tempo Total: " + FormatadorTempo(tempoTotal);
-        textoMarcos.text = "Marcos Alcançados: " + totalMarcos;
-        textoJogadas.text = "Jogadas: " + jogadas;
-        textoMascarasTotais.text = "Máscaras Totais: " + totalMascaras;
+        textoRecorde.text        = "Recorde: "          + Mathf.FloorToInt(recorde) + "m";
+        textoTempoTotal.text     = "Tempo Total: "      + FormatadorTempo(tempoTotal);
+        textoMarcos.text         = "Marcos Alcançados: "+ totalMarcos;
+        textoJogadas.text        = "Jogadas: "          + jogadas;
+        textoMascarasTotais.text = "Máscaras Totais: "  + totalMascaras;
 
         // Última corrida
         float ultimaDistancia = PlayerPrefs.GetFloat("UltimaDistancia", 0f);
-        float ultimoTempo = PlayerPrefs.GetFloat("UltimoTempo", 0f);
-        int ultimosMarcos = PlayerPrefs.GetInt("UltimosMarcos", 0);
-        int ultimasMascaras = PlayerPrefs.GetInt("UltimasMascaras", 0);
+        float ultimoTempo     = PlayerPrefs.GetFloat("UltimoTempo",     0f);
+        int   ultimosMarcos   = PlayerPrefs.GetInt  ("UltimosMarcos",   0);
+        int   ultimasMascaras = PlayerPrefs.GetInt  ("UltimasMascaras", 0);
 
         textoUltimaDistancia.text = "Última Distância: " + Mathf.FloorToInt(ultimaDistancia) + "m";
-        textoUltimoTempo.text = "Último Tempo: " + FormatadorTempo(ultimoTempo);
-        textoUltimosMarcos.text = "Últimos Marcos: " + ultimosMarcos;
-        textoUltimasMascaras.text = "Máscaras Coletadas: " + ultimasMascaras;
+        textoUltimoTempo.text     = "Último Tempo: "     + FormatadorTempo(ultimoTempo);
+        textoUltimosMarcos.text   = "Últimos Marcos: "   + ultimosMarcos;
+        textoUltimasMascaras.text = "Máscaras Coletadas: "+ ultimasMascaras;
+
+        /* Começa com o painel escondido (opcional) */
+        if (panelMascara != null)
+            panelMascara.SetActive(false);
     }
 
-    public void Jogar()
-    {
-        SceneManager.LoadScene(nomeCenaJogo);
-    }
+    /* ---------- Botões ---------- */
+    public void Jogar()        => SceneManager.LoadScene(nomeCenaJogo);
 
     public void Sair()
     {
@@ -58,6 +64,14 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    /* ---------- Mostrar / Ocultar painel ---------- */
+    public void TogglePanelMascara()
+    {
+        if (panelMascara == null) return;
+        panelMascara.SetActive(!panelMascara.activeSelf);
+    }
+
+    /* ---------- Util ---------- */
     string FormatadorTempo(float t)
     {
         int min = Mathf.FloorToInt(t / 60f);
