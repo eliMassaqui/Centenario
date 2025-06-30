@@ -1,106 +1,76 @@
-### 🎮 Nome do Projeto:
+# 🎮 Centenário: Aventura na Serra da Leba
 
-**Explore Angola – Serra da Leba**
-
----
-
-### 🧠 Resumo Geral:
-
-Jogo runner 3D desenvolvido na Unity, onde o jogador explora a famosa **Serra da Leba**, em Angola. O objetivo é correr o máximo possível, **desviando de obstáculos**, **coletando máscaras culturais** e **batendo recordes**.
+Explore um dos cenários mais icônicos de Angola neste jogo runner 3D feito na Unity. O jogador percorre a famosa **Serra da Leba**, desviando de obstáculos, coletando máscaras culturais e acumulando conquistas enquanto avança na corrida.
 
 ---
 
-### 💪 Principais Funcionalidades:
+## 🧠 Visão Geral
 
-* **Movimento Automático:** O personagem corre continuamente para frente.
-* **Controlo Lateral:** O jogador pode mover-se para os lados usando teclas.
-* **Coleta de Máscaras:** Máscaras culturais são colecionáveis durante a corrida.
-* **Sistema de Obstáculos:** Colidir com obstáculos finaliza a partida.
-* **Chão Infinito:** Sistema de blocos recicláveis que simula estrada contínua.
-* **HUD em Tempo Real:** Mostra distância, tempo, recorde e marcos.
-* **Sistema de Marcos:** A cada 500 metros, um marco é exibido dinamicamente.
-* **Menu Inicial com Estatísticas:** Exibe recorde, tempo total, jogadas, marcos e dados da última corrida.
-* **Painel de Game Over:** Com opções de reiniciar ou retornar ao menu principal.
-* **Curva Visual da Serra da Leba:** UI artística inspirada na estrada real, que revela-se conforme coleta de máscaras.
-* **Sistema de Conquistas:**
-  * **Máscaras:** Desbloqueia itens visuais/mídias conforme quantidade de máscaras coletadas.
-  * **Títulos por Distância:** O jogador ganha **títulos** ao alcançar certas distâncias (Ex: "Turista", "Lendário").
+O objetivo é correr o mais longe possível:
+- **Desvie dos perigos** no caminho sinuoso da serra.
+- **Colete máscaras culturais** que representam a riqueza de Angola.
+- **Desbloqueie títulos e conquistas** à medida que avança.
 
 ---
 
-### 🏆 Conquistas & Títulos
+## 💡 Destaques do Jogo
 
-#### 🎭 Desbloqueáveis por Máscaras:
-| Quantidade | Desbloqueio |
-|------------|-------------|
-| 10         | Descobridor |
-| 30         | Explorador  |
-| 65         | Guardião Cultural |
-
-> Cada desbloqueio libera um botão com curiosidades culturais em imagem ou vídeo.
-
-#### 🏅 Títulos por Distância:
-| Distância | Título        |
-|-----------|---------------|
-| 500m      | Novato        |
-| 1000m     | Turista       |
-| 1500m     | Explorador    |
-| 2000m     | Viajante      |
-| 2500m     | Corajoso      |
-| 3000m     | Intrépido     |
-| 3500m     | Mestre        |
-| 4000m     | Veterano      |
-| 4500m     | Lendário      |
-| 5000m     | Ícone         |
-
-> Título aparece na tela principal permanentemente conforme recorde do jogador.
+- ✅ **Movimento Automático:** o jogador corre sempre para frente.
+- 🎮 **Controles Laterais:** movimentação com teclado para evitar colisões.
+- 🎯 **Sistema de Obstáculos:** colisões encerram a corrida.
+- 🔁 **Chão Infinito:** blocos da estrada se reciclam.
+- 🎭 **Coleta de Máscaras:** colecionáveis culturais com sistema de conquistas.
+- 📊 **HUD em tempo real:** distância, tempo, recorde, tempo total e máscaras coletadas.
+- 🧠 **Sistema de Marco:** alerta visual a cada 500 metros com efeito de "parabéns".
+- 📋 **Menu Completo:** estatísticas da última corrida, recordes, jogadas totais, marcos e máscaras.
+- 🏆 **Sistema de Conquistas (com feedback na tela principal):**
+  - 🎭 **Por Máscaras Coletadas:** desbloqueia até 3 curiosidades ou conteúdos:
+    - 70 máscaras: *Colecionador*
+    - 200 máscaras: *Explorador*
+    - 1500 máscaras: *Mestre das Máscaras*
+  - 🥇 **Por Distância Percorrida:** títulos por performance:
+    - A cada 500 metros, um novo nome é atribuído, até "Ícone".
+    - Exemplo de mensagem:  
+      _"Você percorreu até 3000 metros! Ganhou o título de Lendário!"_
 
 ---
 
-### 📁 Salvamento de Dados (PlayerPrefs):
+## 📁 Salvamento de Dados com PlayerPrefs
 
-* Recorde de distância
-* Tempo total jogado
-* Jogadas totais
-* Máscaras totais
-* Estatísticas da última corrida:
-  * Distância
-  * Tempo
-  * Marcos
-
----
-
-### 🛠️ Tecnologias Usadas:
-
-* **Unity 2022.3.6f1**
-* **C# (Programação)**
-* **TextMeshPro (UI)**
-* **Shader Graph (para efeitos visuais futuros)**
-* **PlayerPrefs (salvamento local)**
+- `Recorde` (distância máxima)
+- `TempoTotal` (tempo acumulado)
+- `Jogadas` (total de tentativas)
+- `TotalMascaras` (máscaras coletadas)
+- Estatísticas da última corrida:
+  - `UltimaDistancia`
+  - `UltimoTempo`
+  - `UltimosMarcos`
+  - `UltimasMascaras`
 
 ---
 
-### 🌍 Cultura & Educação:
+## 🛠️ Tecnologias Usadas
 
-Explore Angola através de um gameplay divertido com impacto cultural:
-* Máscaras inspiradas na tradição angolana
-* Desbloqueáveis com **curiosidades culturais** em formato de imagem ou vídeo
-* Representação artística da **Serra da Leba** na interface
-
----
-
-### 📌 Status Atual:
-
-✅ Gameplay funcional  
-✅ UI interativa com estatísticas  
-✅ Sistema de conquistas por máscaras e distância  
-🚧 Mais conteúdos desbloqueáveis em desenvolvimento  
+- Unity `2022.3.6f1`
+- C# (scripting)
+- TextMeshPro
+- UI Canvas
+- (Futuramente) Shader Graph
 
 ---
 
-### 📷 Extras
+## 🎨 Cultura e Identidade
 
-> Em breve adicionaremos screenshots e vídeos do gameplay!
+O jogo celebra a **cultura angolana**, com destaque à **Serra da Leba** e às **máscaras tradicionais** como símbolos colecionáveis. Uma forma interativa e divertida de aprender e valorizar o país.
 
 ---
 
+## 📌 Próximos Passos
+
+- Adicionar mídia (vídeo ou imagem) para cada conquista desbloqueada.
+- Expandir os títulos por distância.
+- Adicionar novo conteúdo cultural interativo.
+
+---
+
+Feito com 💚 por Elísio Massaqui
