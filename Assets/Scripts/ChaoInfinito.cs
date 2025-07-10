@@ -3,42 +3,49 @@ using System.Collections.Generic;
 
 public class ChaoInfinito : MonoBehaviour
 {
-    public GameObject[] blocosDeChao; // Prefabs dos blocos
-    public int quantidade = 4; // Quantos blocos em cena
-    public float comprimento = 30f; // Comprimento de cada bloco
-    public Transform jogador;
+    public GameObject[] blocosNaCena; // Blocos já posicionados na cena
+    public float comprimento = 30f;   // Comprimento de cada bloco
+    public float velocidade = 10f;    // Velocidade do movimento do chão
 
     private Queue<GameObject> filaChao = new Queue<GameObject>();
-    private Vector3 proximaPosicao;
 
     void Start()
     {
-        proximaPosicao = Vector3.zero;
+        Vector3 posicaoInicial = Vector3.zero;
 
-        for (int i = 0; i < quantidade; i++)
+        foreach (GameObject bloco in blocosNaCena)
         {
-            CriarBloco();
+            bloco.transform.position = posicaoInicial;
+            bloco.SetActive(true);
+            filaChao.Enqueue(bloco);
+            posicaoInicial.z += comprimento;
         }
     }
 
     void Update()
     {
-        GameObject primeiroBloco = filaChao.Peek();
-        if (jogador.position.z - primeiroBloco.transform.position.z > comprimento)
+        float deslocamento = velocidade * Time.deltaTime;
+
+        foreach (GameObject bloco in filaChao)
         {
-            // Reposiciona o primeiro bloco no final
+            bloco.transform.position -= new Vector3(0f, 0f, deslocamento);
+        }
+
+        if (filaChao.Count == 0) return;
+
+        GameObject primeiroBloco = filaChao.Peek();
+        if (primeiroBloco.transform.position.z < -comprimento)
+        {
             GameObject bloco = filaChao.Dequeue();
-            bloco.transform.position = proximaPosicao;
+            GameObject ultimoBloco = GetUltimoBloco();
+            bloco.transform.position = ultimoBloco.transform.position + new Vector3(0f, 0f, comprimento);
             filaChao.Enqueue(bloco);
-            proximaPosicao.z += comprimento;
         }
     }
 
-    void CriarBloco()
+    GameObject GetUltimoBloco()
     {
-        GameObject prefab = blocosDeChao[Random.Range(0, blocosDeChao.Length)];
-        GameObject bloco = Instantiate(prefab, proximaPosicao, Quaternion.identity);
-        filaChao.Enqueue(bloco);
-        proximaPosicao.z += comprimento;
+        GameObject[] array = filaChao.ToArray();
+        return array[array.Length - 1];
     }
 }

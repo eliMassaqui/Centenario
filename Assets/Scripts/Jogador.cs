@@ -4,41 +4,27 @@ using TMPro;
 
 public class Jogador : MonoBehaviour
 {
-    public float velocidade = 10f;
+    [Header("Movimento")]
     public float lateralSpeed = 5f;
     public float limiteX = 3f;
 
-    [Header("UI Game Over")]
+    [Header("UI")]
     public GameObject painelGameOver;
-
-    [Header("UI Recompensa")]
-    public TextMeshProUGUI textoMascaras; // arrasta o texto no inspector
+    public TextMeshProUGUI textoMascaras;
 
     private int mascarasColetadas = 0;
     private bool estaVivo = true;
 
     void Start()
     {
-        estaVivo = true;
-        Time.timeScale = 1f;
-
-        if (painelGameOver != null)
-            painelGameOver.SetActive(false);
-
-        if (textoMascaras != null)
-            textoMascaras.text = "Máscaras: 0";
+        InicializarEstado();
     }
 
     void Update()
     {
         if (!estaVivo) return;
 
-        transform.Translate(Vector3.forward * velocidade * Time.deltaTime);
-
-        float inputX = Input.GetAxis("Horizontal");
-        Vector3 pos = transform.position + Vector3.right * inputX * lateralSpeed * Time.deltaTime;
-        pos.x = Mathf.Clamp(pos.x, -limiteX, limiteX);
-        transform.position = pos;
+        MoverLateralmente();
     }
 
     void OnCollisionEnter(Collision colisao)
@@ -54,21 +40,50 @@ public class Jogador : MonoBehaviour
     {
         if (other.CompareTag("Mascara"))
         {
-            mascarasColetadas++;
-            Destroy(other.gameObject);
-
-            if (textoMascaras != null)
-                textoMascaras.text = "Mascaras: " + mascarasColetadas;
+            ColetarMascara(other.gameObject);
         }
+    }
+
+    void InicializarEstado()
+    {
+        estaVivo = true;
+        Time.timeScale = 1f;
+
+        if (painelGameOver != null)
+            painelGameOver.SetActive(false);
+
+        AtualizarUI();
+    }
+
+    void MoverLateralmente()
+    {
+        float inputX = Input.GetAxis("Horizontal");
+        Vector3 pos = transform.position;
+        pos.x += inputX * lateralSpeed * Time.deltaTime;
+        pos.x = Mathf.Clamp(pos.x, -limiteX, limiteX);
+        transform.position = pos;
+    }
+
+    void ColetarMascara(GameObject mascara)
+    {
+        mascarasColetadas++;
+        Destroy(mascara);
+        AtualizarUI();
+    }
+
+    void AtualizarUI()
+    {
+        if (textoMascaras != null)
+            textoMascaras.text = "Mascaras: " + mascarasColetadas;
     }
 
     void MostrarGameOver()
     {
         Time.timeScale = 0f;
+
         if (painelGameOver != null)
             painelGameOver.SetActive(true);
 
-        // Salvar quantidade de máscaras
         PlayerPrefs.SetInt("TotalMascaras", PlayerPrefs.GetInt("TotalMascaras", 0) + mascarasColetadas);
         PlayerPrefs.SetInt("UltimasMascaras", mascarasColetadas);
     }
