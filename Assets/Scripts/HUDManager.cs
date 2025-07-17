@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
@@ -15,7 +16,14 @@ public class HUDManager : MonoBehaviour
     [Header("Configurações")]
     public float intervaloMarco = 500f;
     public float tempoExibicaoMarco = 2f;
-    public float velocidadeSimulada = 10f; // m/s simulados
+    public float velocidadeSimulada = 10f;
+
+    [Header("Progresso por Recorde")]
+    public Image levelBar;
+    public float distanciaParaNivelMax = 5000f;
+
+    [Header("Opções de Depuração")]
+    public bool resetarRecordeNoStart = false;
 
     private float distanciaSimulada = 0f;
     private float proximoMarco;
@@ -24,8 +32,17 @@ public class HUDManager : MonoBehaviour
 
     void Start()
     {
+        if (resetarRecordeNoStart)
+        {
+            PlayerPrefs.DeleteKey("Recorde");
+            recorde = 0f;
+        }
+        else
+        {
+            recorde = PlayerPrefs.GetFloat("Recorde", 0f);
+        }
+
         proximoMarco = intervaloMarco;
-        recorde = PlayerPrefs.GetFloat("Recorde", 0f);
 
         if (painelMarco != null)
             painelMarco.SetActive(false);
@@ -49,6 +66,12 @@ public class HUDManager : MonoBehaviour
 
         if (textoRecorde != null)
             textoRecorde.text = Mathf.FloorToInt(recorde) + "m";
+
+        if (levelBar != null)
+        {
+            float progresso = Mathf.Clamp01(recorde / distanciaParaNivelMax);
+            levelBar.fillAmount = progresso;
+        }
 
         if (distanciaSimulada >= proximoMarco)
         {
@@ -103,7 +126,6 @@ public class HUDManager : MonoBehaviour
             painelMarco.SetActive(false);
     }
 
-    // === Permitir acesso externo ===
     public float TempoDecorrido => tempoDecorrido;
     public float DistanciaAtual => distanciaSimulada;
 }
