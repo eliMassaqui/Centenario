@@ -18250,6 +18250,8 @@ MonoBehaviour:
   textoRecorde: {fileID: 1207338813197847079}
   textoMarco: {fileID: 643418291784998025}
   painelMarco: {fileID: 325472705339854271}
+  painelFinal: {fileID: 1477957094}
+  tempoFinalAtivo: 10
   intervaloMarco: 500
   tempoExibicaoMarco: 6
   velocidadeSimulada: 10
