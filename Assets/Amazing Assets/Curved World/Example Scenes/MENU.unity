@@ -205,15 +205,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VideoPlayerUI, Assembly-CSharp
-        m_MethodName: TocarClip
-        m_Mode: 2
+      - m_Target: {fileID: 684645651}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: TogglePainelComFilho
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 32900000, guid: 2d3377f0039780f498be7a255f8ce336,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Video.VideoClip, UnityEngine
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -994,19 +993,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 323086484}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1902682439}
-        m_TargetAssemblyTypeName: ControladorDePainel, Assembly-CSharp
-        m_MethodName: AtivarPainelFilho
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &342237163
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,19 +2213,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1171292377}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1190754623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2321,7 +2296,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1190754626}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 684645651}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: TogglePainelComFilho
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1190754626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4064,7 +4051,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 684645651}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: AtivarPainelComFilho
+        m_MethodName: TogglePainelComFilho
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4196,7 +4183,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 684645651}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: AlternarPainelUnico
+        m_MethodName: TogglePainelUnico
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4204,7 +4191,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1814290068
 MonoBehaviour:
@@ -4576,19 +4563,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1881619101}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1902682435
 GameObject:
   m_ObjectHideFlags: 0
@@ -5043,7 +5018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2107916319
 RectTransform:
   m_ObjectHideFlags: 0

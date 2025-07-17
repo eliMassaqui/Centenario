@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     public GameObject filho1;
     public GameObject filho2;
 
-    [Header("Painel isolado")]
+    [Header("Painel único adicional")]
     public GameObject painelUnico;
 
     [Header("Textos de estatísticas")]
@@ -39,24 +39,24 @@ public class MenuManager : MonoBehaviour
         int   jogadas       = PlayerPrefs.GetInt  ("Jogadas",      0);
         int   totalMascaras = PlayerPrefs.GetInt  ("TotalMascaras",0);
 
-        textoRecorde.text        = Mathf.FloorToInt(recorde) + " m";
-        textoTempoTotal.text     = FormatadorTempo(tempoTotal);
-        textoMarcos.text         = totalMarcos.ToString();
-        textoJogadas.text        = jogadas.ToString();
-        textoMascarasTotais.text = totalMascaras.ToString();
+        textoRecorde.text        = "Recorde: "           + Mathf.FloorToInt(recorde) + " m";
+        textoTempoTotal.text     = "Tempo Total: "       + FormatadorTempo(tempoTotal);
+        textoMarcos.text         = "Marcos: "            + totalMarcos;
+        textoJogadas.text        = "Jogadas: "           + jogadas;
+        textoMascarasTotais.text = "Máscaras Totais: "   + totalMascaras;
 
         float ultimaDistancia = PlayerPrefs.GetFloat("UltimaDistancia", 0f);
         float ultimoTempo     = PlayerPrefs.GetFloat("UltimoTempo",     0f);
         int   ultimosMarcos   = PlayerPrefs.GetInt  ("UltimosMarcos",   0);
         int   ultimasMascaras = PlayerPrefs.GetInt  ("UltimasMascaras", 0);
 
-        textoUltimaDistancia.text = Mathf.FloorToInt(ultimaDistancia) + " m";
-        textoUltimoTempo.text     = FormatadorTempo(ultimoTempo);
-        textoUltimosMarcos.text   = ultimosMarcos.ToString();
-        textoUltimasMascaras.text = ultimasMascaras.ToString();
+        textoUltimaDistancia.text = "Última Distância: "   + Mathf.FloorToInt(ultimaDistancia) + " m";
+        textoUltimoTempo.text     = "Último Tempo: "       + FormatadorTempo(ultimoTempo);
+        textoUltimosMarcos.text   = "Últimos Marcos: "     + ultimosMarcos;
+        textoUltimasMascaras.text = "Máscaras Coletadas: " + ultimasMascaras;
 
         FecharPainelPrincipal();
-        if (painelUnico != null) painelUnico.SetActive(false);
+        FecharPainelUnico();
     }
 
     public void Jogar() => SceneManager.LoadScene(nomeCenaJogo);
@@ -67,9 +67,16 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void AtivarPainelComFilho(int index)
+    public void TogglePainelComFilho(int index)
     {
         if (painelPrincipal == null) return;
+
+        // Se já está aberto e o filho também, fecha tudo
+        if (painelPrincipal.activeSelf && FilhoEstaAtivo(index))
+        {
+            FecharPainelPrincipal();
+            return;
+        }
 
         painelPrincipal.SetActive(true);
 
@@ -82,7 +89,7 @@ public class MenuManager : MonoBehaviour
             case 0: filho0?.SetActive(true); break;
             case 1: filho1?.SetActive(true); break;
             case 2: filho2?.SetActive(true); break;
-            default: Debug.LogWarning("Índice de filho inválido."); break;
+            default: Debug.LogWarning("Índice inválido."); break;
         }
     }
 
@@ -94,13 +101,29 @@ public class MenuManager : MonoBehaviour
         filho2?.SetActive(false);
     }
 
-    public void AlternarPainelUnico()
+    private bool FilhoEstaAtivo(int index)
     {
-        if (painelUnico != null)
-            painelUnico.SetActive(!painelUnico.activeSelf);
+        switch (index)
+        {
+            case 0: return filho0 != null && filho0.activeSelf;
+            case 1: return filho1 != null && filho1.activeSelf;
+            case 2: return filho2 != null && filho2.activeSelf;
+            default: return false;
+        }
     }
 
-    string FormatadorTempo(float t)
+    public void TogglePainelUnico()
+    {
+        if (painelUnico == null) return;
+        painelUnico.SetActive(!painelUnico.activeSelf);
+    }
+
+    public void FecharPainelUnico()
+    {
+        painelUnico?.SetActive(false);
+    }
+
+    private string FormatadorTempo(float t)
     {
         int min = Mathf.FloorToInt(t / 60f);
         int seg = Mathf.FloorToInt(t % 60f);

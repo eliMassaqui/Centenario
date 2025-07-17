@@ -15,7 +15,7 @@ public class HUDManager : MonoBehaviour
     [Header("Configurações")]
     public float intervaloMarco = 500f;
     public float tempoExibicaoMarco = 2f;
-    public float velocidadeSimulada = 10f; // m/s, simulando avanço constante
+    public float velocidadeSimulada = 10f; // m/s simulados
 
     private float distanciaSimulada = 0f;
     private float proximoMarco;
@@ -102,4 +102,8 @@ public class HUDManager : MonoBehaviour
         if (painelMarco != null)
             painelMarco.SetActive(false);
     }
+
+    // === Permitir acesso externo ===
+    public float TempoDecorrido => tempoDecorrido;
+    public float DistanciaAtual => distanciaSimulada;
 }
