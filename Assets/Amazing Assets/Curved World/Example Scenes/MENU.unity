@@ -1312,7 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fb4e94238ea0df45b939c8620afa61a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomeCenaJogo: EXPLORE
+  nomeCenaJogo: Centenario
   panelMascara: {fileID: 2107916318}
   textoRecorde: {fileID: 1410640136}
   textoTempoTotal: {fileID: 1194686407}

@@ -4,31 +4,22 @@ using TMPro;
 
 public class Jogador : MonoBehaviour
 {
-    [Header("Movimento")]
-    public float lateralSpeed = 5f;
-    public float limiteX = 3f;
-
     [Header("UI")]
     public GameObject painelGameOver;
     public TextMeshProUGUI textoMascaras;
 
     private int mascarasColetadas = 0;
-    private bool estaVivo = true;
+    public bool estaVivo = true;
 
     void Start()
     {
         InicializarEstado();
     }
 
-    void Update()
+    void OnCollisionEnter(Collision colisao)
     {
         if (!estaVivo) return;
 
-        MoverLateralmente();
-    }
-
-    void OnCollisionEnter(Collision colisao)
-    {
         if (colisao.gameObject.CompareTag("Obstaculo"))
         {
             estaVivo = false;
@@ -38,6 +29,8 @@ public class Jogador : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (!estaVivo) return;
+
         if (other.CompareTag("Mascara"))
         {
             ColetarMascara(other.gameObject);
@@ -53,15 +46,6 @@ public class Jogador : MonoBehaviour
             painelGameOver.SetActive(false);
 
         AtualizarUI();
-    }
-
-    void MoverLateralmente()
-    {
-        float inputX = Input.GetAxis("Horizontal");
-        Vector3 pos = transform.position;
-        pos.x += inputX * lateralSpeed * Time.deltaTime;
-        pos.x = Mathf.Clamp(pos.x, -limiteX, limiteX);
-        transform.position = pos;
     }
 
     void ColetarMascara(GameObject mascara)

@@ -3,8 +3,6 @@ using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
-    public Transform jogador;
-
     [Header("Textos")]
     public TextMeshProUGUI textoDistancia;
     public TextMeshProUGUI textoTempo;
@@ -17,15 +15,15 @@ public class HUDManager : MonoBehaviour
     [Header("Configurações")]
     public float intervaloMarco = 500f;
     public float tempoExibicaoMarco = 2f;
+    public float velocidadeSimulada = 10f; // m/s, simulando avanço constante
 
-    private float pontoInicialZ;
+    private float distanciaSimulada = 0f;
     private float proximoMarco;
     private float tempoDecorrido;
     private float recorde;
 
     void Start()
     {
-        pontoInicialZ = jogador.position.z;
         proximoMarco = intervaloMarco;
         recorde = PlayerPrefs.GetFloat("Recorde", 0f);
 
@@ -38,29 +36,30 @@ public class HUDManager : MonoBehaviour
 
     void Update()
     {
-        float distancia = jogador.position.z - pontoInicialZ;
-        tempoDecorrido += Time.deltaTime;
+        float delta = Time.deltaTime;
+
+        tempoDecorrido += delta;
+        distanciaSimulada += velocidadeSimulada * delta;
 
         if (textoDistancia != null)
-            textoDistancia.text = "Distância: " + Mathf.FloorToInt(distancia) + "m";
+            textoDistancia.text = Mathf.FloorToInt(distanciaSimulada) + "m";
 
         if (textoTempo != null)
-            textoTempo.text = "Tempo: " + FormatadorTempo(tempoDecorrido);
+            textoTempo.text = FormatadorTempo(tempoDecorrido);
 
         if (textoRecorde != null)
-            textoRecorde.text = "Recorde: " + Mathf.FloorToInt(recorde) + "m";
+            textoRecorde.text = Mathf.FloorToInt(recorde) + "m";
 
-        if (distancia >= proximoMarco)
+        if (distanciaSimulada >= proximoMarco)
         {
             MostrarMarco(Mathf.FloorToInt(proximoMarco) + "m alcançados!");
             proximoMarco += intervaloMarco;
         }
 
-        if (distancia >= recorde)
+        if (distanciaSimulada >= recorde)
         {
-            recorde = distancia;
+            recorde = distanciaSimulada;
             PlayerPrefs.SetFloat("Recorde", recorde);
-
             if (textoRecorde != null)
                 textoRecorde.gameObject.SetActive(false);
         }
@@ -68,14 +67,13 @@ public class HUDManager : MonoBehaviour
 
     void OnDisable()
     {
-        float distanciaFinal = jogador.position.z - pontoInicialZ;
-        int marcosAlcancados = Mathf.FloorToInt(distanciaFinal / intervaloMarco);
+        int marcosAlcancados = Mathf.FloorToInt(distanciaSimulada / intervaloMarco);
 
         PlayerPrefs.SetFloat("TempoTotal", PlayerPrefs.GetFloat("TempoTotal", 0f) + tempoDecorrido);
         PlayerPrefs.SetInt("TotalMarcos", PlayerPrefs.GetInt("TotalMarcos", 0) + marcosAlcancados);
         PlayerPrefs.SetInt("Jogadas", PlayerPrefs.GetInt("Jogadas", 0) + 1);
 
-        PlayerPrefs.SetFloat("UltimaDistancia", distanciaFinal);
+        PlayerPrefs.SetFloat("UltimaDistancia", distanciaSimulada);
         PlayerPrefs.SetFloat("UltimoTempo", tempoDecorrido);
         PlayerPrefs.SetInt("UltimosMarcos", marcosAlcancados);
     }
