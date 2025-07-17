@@ -1,12 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class Jogador : MonoBehaviour
 {
     [Header("UI")]
     public GameObject painelGameOver;
+    public Image barraVida;
     public TextMeshProUGUI textoMascaras;
+
+    private float vida = 100f;
+    private float vidaMaxima = 100f;
+    private float danoPorColisao = 100f / 6f;
 
     private int mascarasColetadas = 0;
     public bool estaVivo = true;
@@ -22,8 +28,7 @@ public class Jogador : MonoBehaviour
 
         if (colisao.gameObject.CompareTag("Obstaculo"))
         {
-            estaVivo = false;
-            MostrarGameOver();
+            ReceberDano();
         }
     }
 
@@ -37,22 +42,45 @@ public class Jogador : MonoBehaviour
         }
     }
 
-    void InicializarEstado()
-    {
-        estaVivo = true;
-        Time.timeScale = 1f;
-
-        if (painelGameOver != null)
-            painelGameOver.SetActive(false);
-
-        AtualizarUI();
-    }
-
     void ColetarMascara(GameObject mascara)
     {
         mascarasColetadas++;
         Destroy(mascara);
         AtualizarUI();
+    }
+
+    public void ReceberDano()
+    {
+        vida -= danoPorColisao;
+        AtualizarBarraVida();
+
+        Debug.Log($"Colisão detectada! Vida restante: {vida:F2}");
+
+        if (vida <= 0)
+        {
+            vida = 0;
+            estaVivo = false;
+            MostrarGameOver();
+        }
+    }
+
+    void InicializarEstado()
+    {
+        estaVivo = true;
+        vida = vidaMaxima;
+        Time.timeScale = 1f;
+
+        if (painelGameOver != null)
+            painelGameOver.SetActive(false);
+
+        AtualizarBarraVida();
+        AtualizarUI();
+    }
+
+    void AtualizarBarraVida()
+    {
+        if (barraVida != null)
+            barraVida.fillAmount = vida / vidaMaxima;
     }
 
     void AtualizarUI()
