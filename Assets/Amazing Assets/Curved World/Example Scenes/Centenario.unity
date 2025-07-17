@@ -6256,7 +6256,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999968094}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c66473dfdbec2a43b3e15a2d1bbb430, type: 3}
   m_Name: 
@@ -6268,7 +6268,7 @@ MonoBehaviour:
   velocidadeSimulada: 10
   corPurgatorio: {r: 1, g: 0, b: 0, a: 1}
   opacidadeNormal: 0.5
-  intervaloPurgatorio: 50
+  intervaloPurgatorio: 500
   tempoParaResponder: 6
   letrasPorDesafio: 3
   testarNoInspector: 0
