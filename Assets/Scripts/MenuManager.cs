@@ -7,8 +7,16 @@ public class MenuManager : MonoBehaviour
     [Header("Nomes das cenas")]
     public string nomeCenaJogo = "CenaJogo";
 
-    [Header("Painel de máscaras")]
-    public GameObject panelMascara;          // ← arrasta o painel aqui
+    [Header("Painel principal (pai)")]
+    public GameObject painelPrincipal;
+
+    [Header("Filhos específicos")]
+    public GameObject filho0;
+    public GameObject filho1;
+    public GameObject filho2;
+
+    [Header("Painel isolado")]
+    public GameObject painelUnico;
 
     [Header("Textos de estatísticas")]
     public TextMeshProUGUI textoRecorde;
@@ -23,40 +31,35 @@ public class MenuManager : MonoBehaviour
     public TextMeshProUGUI textoUltimoTempo;
     public TextMeshProUGUI textoUltimosMarcos;
 
-    /* ---------- Inicialização ---------- */
     void Start()
     {
-        // Estatísticas acumuladas
         float recorde       = PlayerPrefs.GetFloat("Recorde",      0f);
         float tempoTotal    = PlayerPrefs.GetFloat("TempoTotal",   0f);
         int   totalMarcos   = PlayerPrefs.GetInt  ("TotalMarcos",  0);
         int   jogadas       = PlayerPrefs.GetInt  ("Jogadas",      0);
         int   totalMascaras = PlayerPrefs.GetInt  ("TotalMascaras",0);
 
-        textoRecorde.text        = "Recorde: "          + Mathf.FloorToInt(recorde) + "m";
-        textoTempoTotal.text     = "Tempo Total: "      + FormatadorTempo(tempoTotal);
-        textoMarcos.text         = "Marcos Alcançados: "+ totalMarcos;
-        textoJogadas.text        = "Jogadas: "          + jogadas;
-        textoMascarasTotais.text = "Máscaras Totais: "  + totalMascaras;
+        textoRecorde.text        = Mathf.FloorToInt(recorde) + " m";
+        textoTempoTotal.text     = FormatadorTempo(tempoTotal);
+        textoMarcos.text         = totalMarcos.ToString();
+        textoJogadas.text        = jogadas.ToString();
+        textoMascarasTotais.text = totalMascaras.ToString();
 
-        // Última corrida
         float ultimaDistancia = PlayerPrefs.GetFloat("UltimaDistancia", 0f);
         float ultimoTempo     = PlayerPrefs.GetFloat("UltimoTempo",     0f);
         int   ultimosMarcos   = PlayerPrefs.GetInt  ("UltimosMarcos",   0);
         int   ultimasMascaras = PlayerPrefs.GetInt  ("UltimasMascaras", 0);
 
-        textoUltimaDistancia.text = "Última Distância: " + Mathf.FloorToInt(ultimaDistancia) + "m";
-        textoUltimoTempo.text     = "Último Tempo: "     + FormatadorTempo(ultimoTempo);
-        textoUltimosMarcos.text   = "Últimos Marcos: "   + ultimosMarcos;
-        textoUltimasMascaras.text = "Máscaras Coletadas: "+ ultimasMascaras;
+        textoUltimaDistancia.text = Mathf.FloorToInt(ultimaDistancia) + " m";
+        textoUltimoTempo.text     = FormatadorTempo(ultimoTempo);
+        textoUltimosMarcos.text   = ultimosMarcos.ToString();
+        textoUltimasMascaras.text = ultimasMascaras.ToString();
 
-        /* Começa com o painel escondido (opcional) */
-        if (panelMascara != null)
-            panelMascara.SetActive(false);
+        FecharPainelPrincipal();
+        if (painelUnico != null) painelUnico.SetActive(false);
     }
 
-    /* ---------- Botões ---------- */
-    public void Jogar()        => SceneManager.LoadScene(nomeCenaJogo);
+    public void Jogar() => SceneManager.LoadScene(nomeCenaJogo);
 
     public void Sair()
     {
@@ -64,18 +67,43 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    /* ---------- Mostrar / Ocultar painel ---------- */
-    public void TogglePanelMascara()
+    public void AtivarPainelComFilho(int index)
     {
-        if (panelMascara == null) return;
-        panelMascara.SetActive(!panelMascara.activeSelf);
+        if (painelPrincipal == null) return;
+
+        painelPrincipal.SetActive(true);
+
+        filho0?.SetActive(false);
+        filho1?.SetActive(false);
+        filho2?.SetActive(false);
+
+        switch (index)
+        {
+            case 0: filho0?.SetActive(true); break;
+            case 1: filho1?.SetActive(true); break;
+            case 2: filho2?.SetActive(true); break;
+            default: Debug.LogWarning("Índice de filho inválido."); break;
+        }
     }
 
-    /* ---------- Util ---------- */
+    public void FecharPainelPrincipal()
+    {
+        painelPrincipal?.SetActive(false);
+        filho0?.SetActive(false);
+        filho1?.SetActive(false);
+        filho2?.SetActive(false);
+    }
+
+    public void AlternarPainelUnico()
+    {
+        if (painelUnico != null)
+            painelUnico.SetActive(!painelUnico.activeSelf);
+    }
+
     string FormatadorTempo(float t)
     {
         int min = Mathf.FloorToInt(t / 60f);
         int seg = Mathf.FloorToInt(t % 60f);
-        return string.Format("{0:00}:{1:00}", min, seg);
+        return $"{min:00}:{seg:00} min";
     }
 }
