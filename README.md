@@ -25,8 +25,8 @@ O objetivo é correr o mais longe possível:
 - 📋 **Menu Completo:** estatísticas da última corrida, recordes, jogadas totais, marcos e máscaras.
 - 🏆 **Sistema de Conquistas (com feedback na tela principal):**
   - 🎭 **Por Máscaras Coletadas:** desbloqueia até 3 curiosidades ou conteúdos:
-    - 70 máscaras: *Colecionador*
-    - 200 máscaras: *Explorador*
+    - 50 máscaras: *Colecionador*
+    - 150 máscaras: *Explorador*
     - 1500 máscaras: *Mestre das Máscaras*
   - 🥇 **Por Distância Percorrida:** títulos por performance:
     - A cada 500 metros, um novo nome é atribuído, até "Ícone".
